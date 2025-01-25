@@ -163,19 +163,23 @@ function PokeCard(props) {
 
       <h3>Moves</h3>
       <div className='pokemon-move-grid'>
-        {moves.map(({ move }, moveIndex) => {
-          return (
-            <button
-              className='button-card pokemon-move'
-              key={moveIndex}
-              onClick={() => {
-                fetchMoveData(move.name, move.url);
-              }}
-            >
-              <p>{move?.name.replaceAll('-', ' ')}</p>
-            </button>
-          );
-        })}
+        {moves
+          .sort((moveA, moveB) => {
+            return moveA.move.name.localeCompare(moveB.move.name);
+          })
+          .map(({ move }, moveIndex) => {
+            return (
+              <button
+                className='button-card pokemon-move'
+                key={moveIndex}
+                onClick={() => {
+                  fetchMoveData(move.name, move.url);
+                }}
+              >
+                <p>{move?.name.replaceAll('-', ' ')}</p>
+              </button>
+            );
+          })}
       </div>
     </div>
   );
